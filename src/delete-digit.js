@@ -1,5 +1,3 @@
-const { NotImplementedError } = require('../extensions/index.js');
-
 /**
  * Given some integer, find the maximal number you can obtain
  * by deleting exactly one digit of the given number.
@@ -12,12 +10,12 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function deleteDigit(n) {
-  let num = String(n).split("").map(Number);
+  const digits = String(n).split('');
   return Math.max(
-    ...num.map((el, i) => {
-      let max = num.slice();
-      max.splice(i, 1);
-      return Number(max.join(""));
+    ...digits.map((_, index) => {
+      const candidate = digits.slice();
+      candidate.splice(index, 1);
+      return Number(candidate.join(''));
     })
   );
 }

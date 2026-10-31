@@ -1,5 +1,3 @@
-const { NotImplementedError } = require('../extensions/index.js');
-
 const MODERN_ACTIVITY = 15;
 const HALF_LIFE_PERIOD = 5730;
 
@@ -18,20 +16,15 @@ const HALF_LIFE_PERIOD = 5730;
  *
  */
 function dateSample(sampleActivity) {
-    if (typeof sampleActivity !== "string") {
+  if (typeof sampleActivity !== 'string') {
     return false;
   }
-  const k = 0.693 / HALF_LIFE_PERIOD;
-  let number = +sampleActivity;
-  if (!number || number <= 0) {
+  const activity = Number(sampleActivity);
+  if (!Number.isFinite(activity) || activity <= 0 || activity > MODERN_ACTIVITY) {
     return false;
-  } else {
-    const age = Math.ceil(Math.log(MODERN_ACTIVITY / number) / k);
-    if (age < 1) {
-      return false;
-    }
-    return age;
   }
+  const decayRate = 0.693 / HALF_LIFE_PERIOD;
+  return Math.ceil(Math.log(MODERN_ACTIVITY / activity) / decayRate);
 }
 
 module.exports = {

@@ -1,5 +1,3 @@
-const { NotImplementedError } = require('../extensions/index.js');
-
 /**
  * Create name of dream team based on the names of its members
  *  
@@ -14,17 +12,16 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function createDreamTeam(members) {
-  if (members instanceof Array) {
-    let result = [];
-    for (let i = 0; i < members.length; i++) {
-      if (typeof members[i] === "string") {
-        result.push(members[i].trim().charAt(0).toUpperCase());
-      }
-    }
-    return result.sort().join("");
-  } else {
+  if (!Array.isArray(members)) {
     return false;
   }
+  const initials = [];
+  for (const member of members) {
+    if (typeof member === 'string') {
+      initials.push(member.trim().charAt(0).toUpperCase());
+    }
+  }
+  return initials.sort().join('');
 }
 
 module.exports = {
